@@ -25,10 +25,6 @@ client.connect(err => {
                 res.send('success')
         })
     })
-    // collection.insertOne(product)
-    // .then(result => {
-    //     console.log('one product added')
-    // })
 });
 
 app.listen(545, console.log('Server Runnig Port: 545'))
