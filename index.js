@@ -9,13 +9,15 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 const app = express();
 
 app.get('/', (req, res) => {
-    res.send('Hello ANIKA  I am Working');
+    res.send('Hello ANIKA i am  working');
 })
 
 client.connect(err => {
     const collection = client.db("organicsdb").collection("products");
-    console.log('database connect')
+    console.log('database connected')
     client.close();
 });
 
 app.listen(545, console.log('Server Runnig Port: 545'))
+
+
