@@ -18,17 +18,20 @@
 
     </div>
     <script>
-        fetch('/products')
-        .then(res => res.json())
-        .then(products => {
-            // console.log(products)
-            const container = document.getElementById('products');
-            products.forEach(pd => {
-                const p = document.createElement('p');
-                p.innerHTML =  `${pd.name} `;
-                container.appendChild(p);
-            });
-        })
+        const loadPorducts = () => {
+            fetch('/products')
+                .then(res => res.json())
+                .then(products => {
+                    // console.log(products)
+                    const container = document.getElementById('products');
+                    products.forEach(pd => {
+                        const p = document.createElement('p');
+                        p.innerHTML = `<h1>Name: ${pd.name} </h1>--<h2> Price: ${pd.price}</h2>--<h5>Quantity: ${pd.quantity}</h5>`;
+                        container.appendChild(p);
+                    });
+                })
+        }
+        loadPorducts();
     </script>
 </body>
 </html>
