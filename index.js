@@ -33,6 +33,11 @@ client.connect(err => {
                 res.send('success')
         })
     })
+    app.delete('/delete/:id', (req, res) => {
+        collection.delete
+    })
+
+
 });
 
 app.listen(545, console.log('Server Runnig Port: 545'))
