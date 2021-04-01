@@ -17,6 +17,14 @@ app.get('/', (req, res) => {
 
 client.connect(err => {
     const collection = client.db("organicsdb").collection("products");
+
+    app.get('/products', (req, res) => {
+        collection.find({})
+            .toArray((err, documents) => {
+                res.send(documents);
+        })
+    })
+
     app.post('/addProduct', (req, res) => {
         const product = req.body;
         collection.insertOne(product)
