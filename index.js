@@ -34,7 +34,10 @@ client.connect(err => {
         })
     })
     app.delete('/delete/:id', (req, res) => {
-        collection.delete
+        collection.deleteOne({ _id: req.params.id })
+            .then((err, result) => {
+            console.log(result)
+        })
     })
 
 
