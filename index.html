@@ -22,7 +22,7 @@
             fetch('/products')
                 .then(res => res.json())
                 .then(products => {
-                    // console.log(products)
+                    console.log(products) 
                     const container = document.getElementById('products');
                     products.forEach(pd => {
                         const p = document.createElement('p');
@@ -38,7 +38,7 @@
         loadPorducts();
 
         const deleteProduct = (id) => {
-            fetch(`/delete/${id}`,{
+            fetch(`/delete/${id}`, {
                 method: 'DELETE',
             })
             .then(res => res.json())

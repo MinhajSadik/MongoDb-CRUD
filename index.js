@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
+const ObjectId = require('mongodb').ObjectId;
 
 const password = 'MongoDB';
 
@@ -18,6 +19,7 @@ app.get('/', (req, res) => {
 client.connect(err => {
     const collection = client.db("organicsdb").collection("products");
 
+    // get product in database
     app.get('/products', (req, res) => {
         collection.find({})
             .toArray((err, documents) => {
@@ -25,6 +27,7 @@ client.connect(err => {
         })
     })
 
+    // post product in database
     app.post('/addProduct', (req, res) => {
         const product = req.body;
         collection.insertOne(product)
@@ -33,9 +36,11 @@ client.connect(err => {
                 res.send('success')
         })
     })
+
+    // delete product in database
     app.delete('/delete/:id', (req, res) => {
-        collection.deleteOne({ _id: req.params.id })
-            .then((err, result) => {
+        collection.deleteOne({ _id: ObjectId(req.params.id) })
+            .then(result => {
             console.log(result)
         })
     })
