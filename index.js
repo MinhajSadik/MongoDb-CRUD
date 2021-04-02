@@ -24,15 +24,15 @@ client.connect(err => {
         collection.find({})
             .toArray((err, documents) => {
                 res.send(documents);
-        })
+            })
     })
 
     // get single product in database
-    app.get('/product/:id', (req,  res) => {
-        collection.find({_id: ObjectId(req.params.id)})
-            .toArray( (err, documents) => {
+    app.get('/product/:id', (req, res) => {
+        collection.find({ _id: ObjectId(req.params.id) })
+            .toArray((err, documents) => {
                 res.send(documents[0]);
-        })
+            })
     })
 
     // post product in database
@@ -42,15 +42,25 @@ client.connect(err => {
             .then(result => {
                 console.log('data add successfully')
                 res.send('success')
-        })
+            })
+    })
+
+    app.patch('/update/:id', (req, res) => {
+        collection.updateOne({ _id: ObjectId(req.params.id) },
+            {
+                $set: { name: req.params.name, price: req.params.price, quantity: req.params.quantity }
+            })
+            .then(result => {
+                console.dir(result)
+            })
     })
 
     // delete product in database
     app.delete('/delete/:id', (req, res) => {
         collection.deleteOne({ _id: ObjectId(req.params.id) })
             .then(result => {
-            console.log(result)
-        })
+                console.log(result)
+            })
     })
 
 });

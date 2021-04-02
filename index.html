@@ -34,7 +34,6 @@
                     products.forEach(pd => {
                         const p = document.createElement('p');
                         p.innerHTML = `
-
                         Name: ${pd.name} -- Price: ${pd.price}--Quantity: ${pd.quantity}
                         <button onclick="loadProduct( '${pd._id}' )"> Update </button>
 
@@ -60,10 +59,27 @@
                     Quantity: <input type="text" value="${data.quantity}" id="quantity">
                     <br>
                     <br>
-                    <button>Submit</button>
+                    <button onclick="updateProduct('${data._id}')">Submit</button>
                     `;
                 })
         }
+
+        function updateProduct(id) {
+            const price = document.getElementById('name').value;
+            const price = document.getElementById('price').value;
+            const quantity = document.getElementById('quantity').value;
+            const product = {id, name, price, quantity};
+            fetch(`/update/${id}`, {
+                method: 'PATCH',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(product)
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log('updated')
+            })
+        }
+
 
         // delete product in database and it's deleteProduct function
         const deleteProduct = (id) => {
@@ -73,12 +89,13 @@
                 .then(res => res.json())
                 .then(result => {
                     console.log(result)
-                    const deleteProduct = document.getElementById('deleteProduct')
-                    deleteProduct.innerHTML = `
+                    // const deleteProduct = document.getElementById('deleteProduct')
+                    // deleteProduct.innerHTML = `
                     
-                    `;
+                    // `;
                 })
         }
+
     </script>
 </body>
 
