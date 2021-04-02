@@ -41,14 +41,14 @@ client.connect(err => {
         collection.insertOne(product)
             .then(result => {
                 console.log('data add successfully')
-                res.send('success')
+                res.redirect('/');
             })
     })
 
     app.patch('/update/:id', (req, res) => {
         collection.updateOne({ _id: ObjectId(req.params.id) },
             {
-                $set: { name: req.params.name, price: req.params.price, quantity: req.params.quantity }
+                $set: { name: req.body.name, price: req.body.price, quantity: req.body.quantity }
             })
             .then(result => {
                 console.dir(result)
