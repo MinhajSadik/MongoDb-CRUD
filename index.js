@@ -28,9 +28,9 @@ client.connect(err => {
     })
 
     // get single product in database
-    app.get('/product/:id', (req, res) => {
+    app.get('/product/:id', (req,  res) => {
         collection.find({_id: ObjectId(req.params.id)})
-            .toArray((err, documents) => {
+            .toArray( (err, documents) => {
                 res.send(documents[0]);
         })
     })

@@ -19,7 +19,7 @@
 
     <div id="products">
     </div>
-
+    <div id="deleteProduct"></div>
     <div id="update">
     </div>
 
@@ -35,7 +35,7 @@
                         const p = document.createElement('p');
                         p.innerHTML = `
 
-                        <h1>Name: ${pd.name} </h1><h2> Price: ${pd.price}</h2><h5>Quantity: ${pd.quantity}</h5>
+                        Name: ${pd.name} -- Price: ${pd.price}--Quantity: ${pd.quantity}
                         <button onclick="loadProduct( '${pd._id}' )"> Update </button>
 
                         <button onclick="deleteProduct( '${pd._id}' )">Delete</button>
@@ -46,17 +46,22 @@
         }
         // call this function and data in database and it's under thisloadAllProducts  function
         loadAllProducts();
-
+        
         // get single product load in database and it's loadProduct function
         function loadProduct(id) {
             fetch(`product/${id}`)
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data)
-                    const update = document.getElementById('update');
-                    update.innerHTML = `
-                   <h3> Update: ${data._id} </h3>
-                   `;
+                    const updateId = document.getElementById('update');
+                    updateId.innerHTML = `
+                    <h3> Update: ${data._id} </h3>
+                    Name: <input type="text" value="${data.name}" id="name"> 
+                    Price: <input type="text" value="${data.price}" id="price">
+                    Quantity: <input type="text" value="${data.quantity}" id="quantity">
+                    <br>
+                    <br>
+                    <button>Submit</button>
+                    `;
                 })
         }
 
@@ -67,10 +72,13 @@
             })
                 .then(res => res.json())
                 .then(result => {
-                    console.log('delete successfully')
+                    console.log(result)
+                    const deleteProduct = document.getElementById('deleteProduct')
+                    deleteProduct.innerHTML = `
+                    
+                    `;
                 })
         }
-
     </script>
 </body>
 
