@@ -14,29 +14,55 @@
         <input type="text" placeholder="quantity" , name="quantity">
         <input type="submit" value="submit">
     </form>
-    <div id="products">
 
+    <div id="products">
     </div>
+
+    <div id="update">
+    </div>
+
     <script>
-        const loadPorducts = () => {
+        // get products in database and it's under  loadAllProducts function
+        const loadAllProducts = () => {
             fetch('/products')
                 .then(res => res.json())
                 .then(products => {
-                    console.log(products) 
+                    // console.log(products) 
                     const container = document.getElementById('products');
                     products.forEach(pd => {
                         const p = document.createElement('p');
                         p.innerHTML = `
 
                         <h1>Name: ${pd.name} </h1><h2> Price: ${pd.price}</h2><h5>Quantity: ${pd.quantity}</h5>
-                        <button onclick="deleteProduct('${pd._id}')">Delete</button>
+                        <button onclick="loadProduct( '${pd._id}' )"> Update </button>
+
+                        <button onclick="deleteProduct( '${pd._id}' )">Delete</button>
                         `;
                         container.appendChild(p);
                     });
                 })
         }
-        loadPorducts();
+        // call this function and data in database and it's under thisloadAllProducts  function
+        loadAllProducts();
 
+        // get single product load in database and it's loadProduct function
+        function loadProduct(id) {
+            fetch(`product/${id}`)
+            .then(res => res.json())
+            .then(data => {
+                const update = document.getElementById('update');
+                update.innerHTML = `
+                <h3>Update: ${data._id} </h3>
+                price: <input type="text" value="${data.price}" id="price">
+                <br>
+                quantity: <input type="text" value="${data.quantity}" id="quantity">
+                <br>
+                <button>Submit</button>
+                `;
+            })
+        }
+
+        // delete product in database and it's deleteProduct function
         const deleteProduct = (id) => {
             fetch(`/delete/${id}`, {
                 method: 'DELETE',

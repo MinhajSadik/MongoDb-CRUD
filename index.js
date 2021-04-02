@@ -19,11 +19,19 @@ app.get('/', (req, res) => {
 client.connect(err => {
     const collection = client.db("organicsdb").collection("products");
 
-    // get product in database
+    // get multiple products in database
     app.get('/products', (req, res) => {
         collection.find({})
             .toArray((err, documents) => {
                 res.send(documents);
+        })
+    })
+
+    // get single product in database
+    app.get('/product/:id', (req, res) => {
+        collection.find({_id: ObjectId(req.params.id)})
+            .toArray((err, documents) => {
+                res.send(documents[0]);
         })
     })
 
