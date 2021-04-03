@@ -31,6 +31,7 @@
                 .then(products => {
                     // console.log(products) 
                     const container = document.getElementById('products');
+                    container.innerHTML = '';
                     products.forEach(pd => {
                         const p = document.createElement('p');
                         p.innerHTML = `
@@ -45,7 +46,7 @@
         }
         // call this function and data in database and it's under thisloadAllProducts  function
         loadAllProducts();
-        
+
         // get single product load in database and it's loadProduct function
         function loadProduct(id) {
             fetch(`product/${id}`)
@@ -59,7 +60,7 @@
                     Quantity: <input type="text" value="${data.quantity}" id="quantity">
                     <br>
                     <br>
-                    <button onclick="updateProduct( event, '${data._id}')">Submit</button>
+                    <button onclick="updateProduct('${data._id}')">Submit</button>
                     `;
                 })
         }
@@ -68,27 +69,30 @@
             const name = document.getElementById('name').value;
             const price = document.getElementById('price').value;
             const quantity = document.getElementById('quantity').value;
-            const product = {id, name, price, quantity};
+            const product = { id, name, price, quantity };
+
             fetch(`/update/${id}`, {
                 method: 'PATCH',
-                headers: {'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(product)
             })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-            })
+                .then(res => res.json())
+                .then(result => {
+                    if (result) {
+                        loadAllProducts();
+                        document.getElementById('update').innerHTML = ' ';
+                    }
+                })
         }
 
-
         // delete product in database and it's deleteProduct function
-        const deleteProduct = (event,  id) => {
+        const deleteProduct = (event, id) => {
             fetch(`/delete/${id}`, {
                 method: 'DELETE',
             })
                 .then(res => res.json())
                 .then(result => {
-                    if(result){
+                    if (result) {
                         event.target.parentNode.style.display = 'none';
                     }
                 })

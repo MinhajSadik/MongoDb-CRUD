@@ -52,7 +52,7 @@ client.connect(err => {
                 $set: { name: req.body.name, price: req.body.price, quantity: req.body.quantity }
             })
             .then(result => {
-                console.dir(result)
+                res.send(result.modifiedCount > 0);
             })
     })
 
