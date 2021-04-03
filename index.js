@@ -16,6 +16,7 @@ app.get('/', (req, res) => {
     res.sendFile(`${__dirname}/index.html`);
 })
 
+
 client.connect(err => {
     const collection = client.db("organicsdb").collection("products");
 
@@ -59,7 +60,7 @@ client.connect(err => {
     app.delete('/delete/:id', (req, res) => {
         collection.deleteOne({ _id: ObjectId(req.params.id) })
             .then(result => {
-                console.log(result)
+                res.send(result.deletedCount > 0);
             })
     })
 

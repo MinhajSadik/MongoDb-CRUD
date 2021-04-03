@@ -37,7 +37,7 @@
                         Name: ${pd.name} -- Price: ${pd.price}--Quantity: ${pd.quantity}
                         <button onclick="loadProduct( '${pd._id}' )"> Update </button>
 
-                        <button onclick="deleteProduct( '${pd._id}' )">Delete</button>
+                        <button onclick="deleteProduct(event, '${pd._id}' )">Delete</button>
                         `;
                         container.appendChild(p);
                     });
@@ -59,7 +59,7 @@
                     Quantity: <input type="text" value="${data.quantity}" id="quantity">
                     <br>
                     <br>
-                    <button onclick="updateProduct('${data._id}')">Submit</button>
+                    <button onclick="updateProduct( event, '${data._id}')">Submit</button>
                     `;
                 })
         }
@@ -82,17 +82,15 @@
 
 
         // delete product in database and it's deleteProduct function
-        const deleteProduct = (id) => {
+        const deleteProduct = (event,  id) => {
             fetch(`/delete/${id}`, {
                 method: 'DELETE',
             })
                 .then(res => res.json())
                 .then(result => {
-                    console.log(result)
-                    // const deleteProduct = document.getElementById('deleteProduct')
-                    // deleteProduct.innerHTML = `
-                    
-                    // `;
+                    if(result){
+                        event.target.parentNode.style.display = 'none';
+                    }
                 })
         }
 
