@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
 
@@ -66,6 +65,6 @@ client.connect(err => {
 
 });
 
-app.listen(545, console.log('Server Runnig Port: 545'))
+app.listen(7007, console.log('Server Runnig Port: 7007'))
 
 
